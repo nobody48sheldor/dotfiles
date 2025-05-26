@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Source pywal colors
+source "${HOME}/.cache/wal/colors.sh"
+
+# Output path for your rofi theme
+ROFI_THEME1="${HOME}/.config/rofi/launchers/colorful/colors.rasi"
+ROFI_THEME2="${HOME}/.config/rofi/applets/styles/material-dark/wal.rasi"
+
+cat > "$ROFI_THEME1" <<EOF
+/* pywal theme - auto generated */
+* {
+  al:  ${color0};
+  bg:  ${background};
+  se:  ${color2};
+  fg:  ${foreground};
+  ac:  ${color1};
+}
+EOF
+
+cat > "$ROFI_THEME2" <<EOF
+/* pywal theme - auto generated */
+* {
+  accent:  ${color1};
+  background:  ${background};
+  background-light:  ${color0};
+  foreground:  ${foreground};
+  on:  ${color2};
+  off:  ${color5};
+}
+EOF

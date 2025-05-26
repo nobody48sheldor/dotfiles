@@ -35,10 +35,15 @@ bspc config gapless_monocle      true
 # Starting some programs, such as the bar...
 
 dunst &
-eww open -c $HOME/.config/eww/eww-bar bar_left
-eww open -c $HOME/.config/eww/eww-bar bar_center
-eww open -c $HOME/.config/eww/eww-bar bar_right
-picom --config $HOME/.config/bspwm/picom-config.conf -b &
+if [ -z "$(pidof eww)" ]; then
+	eww open -c $HOME/.config/eww/eww-bar bar_left
+	eww open -c $HOME/.config/eww/eww-bar bar_center
+	eww open -c $HOME/.config/eww/eww-bar bar_right
+fi
+
+if [ -z "$(pidof picom)" ]; then
+	picom --config $HOME/.config/bspwm/picom-config.conf -b &
+fi
 
 # starting spotlight to gets started doing stuff !
 
