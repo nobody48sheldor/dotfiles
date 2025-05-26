@@ -29,4 +29,4 @@
 
 
 [ROFI](https://github.com/davatorium/rofi)
-[SPOTLIGHT-ROFI](https://github.com/nobody48sheldor/spotlight-rofi) ~ It's my app, so the code is absoulte garbage, and often not up to date...
+[SPOTLIGHT-ROFI](https://github.com/nobody48sheldor/spotlight-rofi) ~ It's my app, so the code is absoulte garbage, and often not up to date... (Spotlight is already implemented inside this repo, there is no need to download it from the link provided)
