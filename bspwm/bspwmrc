@@ -35,10 +35,10 @@ bspc config gapless_monocle      true
 # Starting some programs, such as the bar...
 
 dunst &
-eww open -c /home/arnaud/Desktop/arnaud/code/eww/eww-bar/eww/mybar bar_left
-eww open -c /home/arnaud/Desktop/arnaud/code/eww/eww-bar/eww/mybar bar_center
-eww open -c /home/arnaud/Desktop/arnaud/code/eww/eww-bar/eww/mybar bar_right
-picom --config /home/arnaud/.config/bspwm/picom-config.conf -b &
+eww open -c $HOME/.config/eww/eww-bar bar_left
+eww open -c $HOME/.config/eww/eww-bar bar_center
+eww open -c $HOME/.config/eww/eww-bar bar_right
+picom --config $HOME/.config/bspwm/picom-config.conf -b &
 
 # starting spotlight to gets started doing stuff !
 
