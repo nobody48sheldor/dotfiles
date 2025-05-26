@@ -1,0 +1,216 @@
+#
+# wm independent hotkeys
+#
+
+super + w
+	rofi -combi-modi window, drun -theme ~/.config/rofi/launchers/colorful/style_5-launcher.rasi -show drun &
+
+# terminal emulator
+super + Return
+	kitty --working-directory=$HOME/Desktop &
+
+# open keybinds helper
+#super + shift + u
+#	bspc rule -a '*' -o state=floating rectangle=1100x800+700+300 && kitty -e glow /home/arnaud/Desktop/arnaud/apps/keybinding/keybinding.md &
+
+# open wifi selector with rofi
+super + n
+	bash -c /home/arnaud/.config/rofi/launchers/colorful/wifi.sh &
+
+# open Spotlight-rofi
+super + shift + s 
+	bash -c /home/arnaud/.config/rofi/launchers/colorful/spotlight &
+
+# reload picom
+super + r
+	killall picom; picom --config $HOME/.config/bspwm/picom-config.conf -b &
+
+# dropdown kitty
+super + alt + t
+	bspc rule -a '*' -o state=floating rectangle=950x350+380+110 && kitty -d "$HOME/Desktop" &
+
+# open xfce4-screenshooter
+super + alt + s
+	xfce4-screenshooter &
+
+# open apps-launcher
+super + @space
+	rofi -combi-modi window, drun -theme ~/.config/rofi/launchers/colorful/style_12 -show drun &
+
+# open zen browser 
+super + b
+	zen-browser &
+
+# open power menu
+super + p
+	/home/arnaud/.config/rofi/applets/android/powermenu.sh &
+
+# open htop
+super + a
+	kitty -e htop &
+
+# open lf
+super + e
+	kitty -e lf /home/arnaud/Desktop &
+
+# open thunar
+super + shift + e
+	thunar &
+
+# open pulsemixer on a floating window
+super + z
+	bspc rule -a '*' -o state=floating rectangle=800x600+20+120 && kitty -e "pulsemixer" &
+
+# open tty-clock
+super + c
+	kitty -e tty-clock -c -s -C 7 &
+
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# Rspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	killall plank; bspc {quit,wm -r}
+
+# close and kill
+super + {_,shift + }q
+	bspc node -{c}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	firefox https://www.youtube.com &
+	# bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+	#bspc rule -a '*' layer={normal, normal, above, above} ;
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+# super + bracket{left,right}
+#	bspc desktop -f {prev,next}.local
+
+super + Tab
+	bspc desktop -f next.local
+
+super + shift + Tab
+	bspc desktop -f prev.local
+
+# focus the last node/desktop
+# super + {grave,Tab}
+#	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# swap or send to the given desktop
+# alt + {_,shift + }{1-9,0}
+# 	bspc {desktop -s,node -d} '^{1-9,10}'
+
+# move or send node to the given desktop
+#alt + Tab
+#    id=$(bspc query -N -n); bspc node -m HDMI-1; bspc node -f  ${id}
+
+# move or send node to the other screen 
+alt + shift + Tab
+    id=$(bspc query -N -n); bspc node -m eDP-1; bspc node -f  ${id}
+
+#focus screen
+#alt + l
+#    bspc monitor -f HDMI-1
+
+alt + h
+    bspc monitor -f eDP-1
+
+# move or send node to the next desktop 
+alt + shift + l
+  id=$(bspc query -N -n); bspc node -d next.local; bspc node -f ${id}
+
+# move or send node to the previous desktop 
+alt + shift + h
+  id=$(bspc query -N -n); bspc node -d prev.local; bspc node -f ${id}
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+
+#super + {_,shift + }{1-9,0}
+#	bspc -m HDMI-1 -f 
+
+#
+# preselect
+#
+
+# preselect the direction
+super + alt + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + alt + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + ctrl + {h,j,k,l}
+	bspc node -z {left -40 0,bottom 0 40,top 0 -40,right 40 0}
+
+# contract a window by moving one of its side inward
+super + ctrl + shift + {h,j,k,l}
+	bspc node -z {right -40 0,top 0 40,bottom 0 -40,left 40 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-40 0,0 40,0 -40,40 0}

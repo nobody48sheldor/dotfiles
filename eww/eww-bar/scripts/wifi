@@ -1,0 +1,2 @@
+wifi_name=$(iwconfig 2>/dev/null | grep -oP 'ESSID:"\K[^"]+')
+echo "$wifi_name"

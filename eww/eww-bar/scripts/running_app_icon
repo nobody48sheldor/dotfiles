@@ -1,0 +1,2 @@
+xprop -id $(bspc query --nodes -n) | grep '_NET_WM_ICON(CARDINAL)' -A 64 | tail -n +2
+#xprop -id $(bspc query --nodes -n)

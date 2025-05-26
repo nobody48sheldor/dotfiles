@@ -1,0 +1,2 @@
+xprop -id $(bspc query --nodes -n) | grep 'WM_CLASS(STRING)' | tail -1 | awk -F '"' '{print substr($4,1,10)}'
+#xprop -id $(bspc query --nodes -n)
