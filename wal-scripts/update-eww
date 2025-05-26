@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cp $HOME/.cache/wal/colors.scss $HOME/.config/eww/eww-bar/

@@ -11,7 +11,7 @@ WARNING : some lines of the config - such as double screen stuff - have been com
 
 ### Compositor
 
-[PICOM](https://github.com/yshui/picom) using `--experimental-backend` flag
+[PICOM](https://github.com/yshui/picom) daemonized (`-b` flag)
 
 
 ### Terminal
