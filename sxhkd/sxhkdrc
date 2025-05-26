@@ -3,7 +3,7 @@
 #
 
 super + w
-	rofi -combi-modi window, drun -theme ~/.config/rofi/launchers/colorful/style_5-launcher.rasi -show drun &
+	rofi -combi-modi window, drun -theme ~/.config/rofi/my-rofi/style_5-launcher.rasi -show drun &
 
 # terminal emulator
 super + Return
@@ -15,11 +15,11 @@ super + Return
 
 # open wifi selector with rofi
 super + n
-	bash -c /home/arnaud/.config/rofi/launchers/colorful/wifi.sh &
+	bash -c /home/arnaud/.config/rofi/my-rofi/wifi.sh &
 
 # open Spotlight-rofi
 super + shift + s 
-	bash -c /home/arnaud/.config/rofi/launchers/colorful/spotlight &
+	bash -c /home/arnaud/.config/rofi/my-rofi/spotlight &
 
 # reload picom
 super + r
@@ -35,7 +35,7 @@ super + alt + s
 
 # open apps-launcher
 super + @space
-	rofi -combi-modi window, drun -theme ~/.config/rofi/launchers/colorful/style_12 -show drun &
+	rofi -combi-modi window, drun -theme ~/.config/rofi/my-rofi/style_12 -show drun &
 
 # open zen browser 
 super + b

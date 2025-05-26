@@ -1,0 +1,8 @@
+/* pywal theme - auto generated */
+* {
+  al:  #1a1625;
+  bg:  #1a1625;
+  se:  #9985B3;
+  fg:  #c5c4c8;
+  ac:  #B18A9D;
+}

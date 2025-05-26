@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# Get directories from the home directory
+dirs_arnaud=$(find ~/Desktop/arnaud \( -path ~/Desktop/arnaud/apps -o -path ~/Desktop/arnaud/misc/Old\ Firefox\ Data \) -prune -o -type d -print)
+# dirs_arnaud=$(find ~/Desktop/arnaud -type d)
+dirs_school=$(find ~/Desktop/school -type d)
+dirs_conf=$(find ~/.config -type d | sed 's|^|% |')
+
+bookmarks=$(python3 ~/.config/rofi/launchers/colorful/python-bookmarks.py list)
+# echo $bookmarks
+
+# Get application entries by using rofi's drun mode to list applications
+#apps=$(find / -name '*.desktop')
+
+apps_share=$(find /usr/share/applications -name "*.desktop" | sed 's|.*/||; s|\.desktop||; s|^|, |')
+
+apps_local=$(find /usr/local/share/applications -name "*.desktop" | sed 's|.*/||; s|\.desktop||; s|^|, |')
+
+apps_local_local=$(find ~/.local/share/applications -name "*.desktop" | sed 's|.*/||; s|\.desktop||; s|^|, |')
+
+files_arnaud=$(find ~/Desktop/arnaud \( -path ~/Desktop/arnaud/apps -o -path ~/Desktop/arnaud/misc/Old\ Firefox\ Data \) -prune -o -type f -print | sed 's|^|> |')
+files_school=$(find ~/Desktop/school -type f -print | sed 's|^|> |')
+
+pdfs=$(find ~/Desktop -path ~/Desktop/config-and-windows -prune -o -type f -name "*.pdf" | sed 's|^/home/arnaud/Desktop/|< |' | sed '1d')
+todo_list=$(cat /home/arnaud/Desktop/arnaud/code/python/todoist-test/tasks-list.txt)
+
+# Combine applications and directories, prefixing apps to identify them
+combined_list=$(echo -e "~ use ',' for apps\n~ use '> for edit files \n~ use '% for config dir\n~ use '?' for web searches\n~ use '@' for bookmarks\n~ use '$' for executing a command\n~ use '<' to open pdf files\n~ other will open dir\n$dirs_arnaud\n$dirs_school\n$bookmarks\n$apps_share\n$apps_local\n$apps_local_local\n$dirs_conf\n$files_arnaud\n$files_school\n$pdfs\n$todo_list\nWALL\nWALLc")
+#combined_list=$(echo -e "$dirs\n$apps")
+
+# Use rofi to select an entry from the combined list
+input=$(echo "$combined_list" | rofi -theme $HOME/.config/rofi/launchers/colorful/style_2-spotlight -dmenu -p "        spotlight :")
+
+echo $input
+
+# Check if input starts with a comma
+if [[ "$input" == ,* ]]; then
+    # If input starts with a comma, launch rofi in drun mode for applications
+    app_query="${input:2}"  # Remove the leading comma for app query
+    #echo $app_query
+    # bash -c "$app_query" &
+    gtk4-launch "$app_query"
+elif [[ "$input" == "?"* ]]; then
+    search="${input:2}"
+    #echo $search
+    zen-browser "https://www.google.com/search?client=firefox-b-d&q=$search" &
+elif [[ "$input" == "Dude"* ]]; then
+    cmd="${input:4}"
+    python3 /home/arnaud/Desktop/arnaud/code/python/Dude/Dude.py "$cmd" &
+elif [[ "$input" == "%"* ]]; then
+    conf_dir="${input:2}"
+    kitty --working-directory "$conf_dir" &
+elif [[ "$input" == "@"* ]]; then
+    website="${input:2}"
+    bookmarks_url=$(python3 ~/.config/rofi/launchers/colorful/python-bookmarks.py "$website")
+    zen-browser "$bookmarks_url"&
+elif [[ "$input" == "$"* ]]; then
+    cmd="${input:2}"
+    cmd &
+elif [[ "$input" == "~"* ]]; then
+    echo "error"
+elif [[ "$input" == ">"* ]]; then
+    file="${input:2}"
+    dir="${input%/*}"
+    dir="${dir:2}"
+    echo $dir
+    kitty --working-directory "$dir" -e vim $file &
+elif [[ "$input" == "<"* ]]; then
+    filepdf="${input:2}"
+    okular "/home/arnaud/Desktop/$filepdf" &
+elif [[ "$input" == "TODO LIST"* ]]; then
+    /home/arnaud/Desktop/arnaud/code/python/todoist-test/tasks_list &
+elif [[ "$input" == "TODO ADD"* ]]; then
+    task="${input:9}"
+    echo "$task"
+    python3 /home/arnaud/Desktop/arnaud/code/python/todoist-test/main.py "$task" &
+elif [[ "$input" == "TODO COMPL"* ]]; then
+    id="${input:(-10)}"
+    echo $id
+    python3 /home/arnaud/Desktop/arnaud/code/python/todoist-test/main.py "complete-task, $id" &
+elif [[ "$input" == "WALL" ]]; then
+    /home/arnaud/Desktop/arnaud/code/bash/wal-changer &
+elif [[ "$input" == "WALLc" ]]; then
+    /home/arnaud/Desktop/arnaud/code/bash/wal-changer -c &
+
+
+elif [ -n "$input" ]; then
+    kitty --working-directory "$input" &
+fi

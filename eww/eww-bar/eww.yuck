@@ -296,7 +296,7 @@
           :cursor "pointer"
           (button
             :tooltip "Change current layout"
-            :onclick "rofi -combi-modi window, drun -theme ~/.config/rofi/launchers/colorful/style_5-launcher.rasi -show drun &"
+            :onclick "rofi -combi-modi window, drun -theme ~/.config/rofi/my-rofi/style_5-launcher.rasi -show drun &"
             :onrightclick "bspc rule -a '*' -o state=floating rectangle=800x600+20+120 && kitty -e 'pulsemixer' &"
 	    (image
                 :class "launcher_icon "
@@ -790,7 +790,7 @@
           :cursor "pointer"
           (button
             :tooltip "launcher menu"
-            :onclick "bash -c ~/.config/rofi/launchers/colorful/spotlight &"
+            :onclick "bash -c ~/.config/rofi/my-rofi/spotlight &"
             :onrightclick "bspc rule -a '*' -o state=floating rectangle=950x350+400+120 && kitty -d '/home/arnaud/Desktop' &"
 	    (image
                 :class "launcher_icon_c"
@@ -866,7 +866,7 @@
           (button
       	    :halign "end"
             :tooltip wifi_status
-            :onclick "~/.config/rofi/launchers/colorful/wifi.sh"
+            :onclick "~/.config/rofi/my-rofi/wifi.sh"
 	    (image
                 :halign "end"
                 :class "launcher_icon"

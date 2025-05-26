@@ -4,7 +4,7 @@
 source "${HOME}/.cache/wal/colors.sh"
 
 # Output path for your rofi theme
-ROFI_THEME1="${HOME}/.config/rofi/launchers/colorful/colors.rasi"
+ROFI_THEME1="${HOME}/.config/rofi/my-rofi/colors.rasi"
 ROFI_THEME2="${HOME}/.config/rofi/applets/styles/material-dark/wal.rasi"
 
 cat > "$ROFI_THEME1" <<EOF
