@@ -2,8 +2,8 @@
 
 
 ;; VARS
-;; (defvar eww "eww -c $HOME/.config/eww/mybar")
-(defvar eww "eww -c $HOME/Desktop/arnaud/code/eww/eww-bar/eww/mybar")
+;; (defvar eww "eww -c $HOME/.config/eww/eww-bar")
+(defvar eww "eww -c $HOME/.config/eww/eww-bar")
 (defvar eww_ "eww -c ~/Desktop/arnaud/code/eww/eww-bar/eww-bar/bar")
 (defvar left_class "win_normal")
 (defvar center_class "win_normal")
@@ -892,7 +892,7 @@
           (button
       	    :halign "end"
             :tooltip "poweroff menu"
-            :onclick "~/.config/rofi/applets/android/powermenu-button.sh"
+            :onclick "~/.config/rofi/my-rofi/powermenu-button.sh"
 	    (image
                 :halign "end"
                 :class power_class

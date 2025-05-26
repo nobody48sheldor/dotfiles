@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "$1"
+
+if [ "$1" == "-c" ]; then
+	WALL=$(nsxiv -to $HOME/Desktop/wallpapers)
+	if [ -n "$WALL" ]; then
+		wal -i $WALL;
+		$HOME/.config/wal-scripts/update-rofi &
+		$HOME/.config/wal-scripts/update-eww &
+	fi
+else
+	wal -i $HOME/Desktop/wallpapers;
+	$HOME/.config/wal-scripts/update-rofi &
+	$HOME/.config/wal-scripts/update-eww &
+fi
